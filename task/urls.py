@@ -6,5 +6,6 @@ from .views import *
 
 urlpatterns = [
     path('', csrf_exempt(TaskView.as_view()), name='tasks_list_url'),
-    path('<str:id>/complete/', csrf_exempt(TaskComplete.as_view()))
+    path('<str:id>/complete/', csrf_exempt(TaskComplete.as_view())),
+    path('<str:id>/delete/', csrf_exempt(TaskDelete.as_view()))
 ]

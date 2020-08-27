@@ -36,4 +36,11 @@ class TaskComplete(View):
         task = Task.objects.get(id=id)
         task.completed = True
         task.save()
-        return JsonResponse({'task': task})
+        return JsonResponse({'task': model_to_dict(task)}, status=200)
+
+
+class TaskDelete(View):
+    def post(self, request, id):
+        task = Task.objects.get(id=id)
+        task.delete()
+        return JsonResponse({'result': 'ok'}, status=200)
