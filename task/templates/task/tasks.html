@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+{% csrf_token %}
 {% verbatim %}
-
     <div id="app">
-        <form>
+        <form @submit.prevent="createTask">
             <div class="form-group row">
                 <div class="col-9">
                     <label>Create New Task</label>
@@ -17,7 +16,9 @@
             </div>
         </form>
         <div class="mt-5">
-            <div class="card mt-2" v-for="task in tasks">
+            <div class="card mt-2" 
+                v-for="(task, index) in tasks"
+                @click="completeTask(task.id, index)">
                 <div class="card-body">
                     {{ task.title }}
                     <button type="button" class="close float-right">

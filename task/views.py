@@ -25,7 +25,15 @@ class TaskView(View):
         if bound_form.is_valid():
             new_task = bound_form.save()
             return JsonResponse(
-                {'task': model_to_dict(bound_form)},
+                {'task': model_to_dict(new_task)},
                 status=200
             )
         return redirect('tasks_list_url')
+
+
+class TaskComplete(View):
+    def post(self, request, id):
+        task = Task.objects.get(id=id)
+        task.completed = True
+        task.save()
+        return JsonResponse({'task': task})
